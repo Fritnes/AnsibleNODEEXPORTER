@@ -1,0 +1,26 @@
+---
+
+  - name: Delete content & directory
+    file:
+      path: "{{ node_exporter_folder }}"
+      state: absent
+
+  - name: populate service facts
+    service_facts:
+
+  - name: disable services
+    service:
+      name: "{{ node_exporter_service_name  }}"
+      enabled: false
+      state: stopped
+    when: "'{{ node_exporter_service_name }}.service' in services"
+
+  - name: Delete service
+    file:
+      path: /etc/systemd/system/{{node_exporter_service_name}}.service
+      state: absent
+
+  - name: Delete monitoring user
+    user:
+      name: "{{ node_exporter_user }}"
+      state: "absent"
