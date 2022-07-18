@@ -16,8 +16,3 @@
       - install_collection
 
   - import_tasks: config.yml
-
-  - import_tasks: delete.yml
-    tags:
-      - never
-      - delete_node_exporter
